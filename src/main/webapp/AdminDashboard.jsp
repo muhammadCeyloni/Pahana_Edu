@@ -9,11 +9,11 @@
 <div class="relative flex size-full min-h-screen flex-col bg-[#102323]">
     <div class="layout-container flex h-full grow flex-col">
         <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#224949] px-10 py-3">
-            <h2 class="text-white text-lg font-bold">Bookshop Admin</h2>
+            <h2 class="text-white text-lg font-bold">Pahana Edu Admin</h2>
             <div class="flex items-center gap-9">
                 <a class="text-white text-sm font-medium" href="dashboard">Dashboard</a>
                 <a class="text-white text-sm font-medium" href="inventory">Inventory</a>
-                <a class="text-white text-sm font-medium" href="#">Billing</a>
+                <a class="text-white text-sm font-medium" href="billing">Billing</a>
                 <a class="text-white text-sm font-medium" href="customers">Customers</a>
                 <a class="text-white text-sm font-medium" href="#">Reports</a>
                  <a class="text-red-400 text-sm font-medium" href="logout">Logout</a>

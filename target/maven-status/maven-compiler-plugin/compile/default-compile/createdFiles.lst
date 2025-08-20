@@ -8,8 +8,12 @@ com\pahanaedu\controller\LoginServlet.class
 com\pahanaedu\controller\LogoutServlet.class
 com\pahanaedu\dao\CustomerDAO.class
 com\pahanaedu\resources\JakartaEE8Resource.class
+com\pahanaedu\controller\BillingServlet.class
 com\pahanaedu\controller\InventoryServlet.class
+com\pahanaedu\dao\InvoiceDAO.class
 com\pahanaedu\model\Customer.class
 com\pahanaedu\model\User.class
+com\pahanaedu\model\Invoice.class
 com\pahanaedu\controller\CustomerServlet.class
+com\pahanaedu\model\InvoiceItem.class
 com\pahanaedu\model\Item.class
