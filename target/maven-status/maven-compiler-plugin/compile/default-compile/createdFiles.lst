@@ -1,3 +1,4 @@
+com\pahanaedu\controller\SignUpServlet.class
 com\pahanaedu\dao\ItemDAO.class
 com\pahanaedu\controller\DashboardServlet.class
 com\pahanaedu\dao\UserDAO.class

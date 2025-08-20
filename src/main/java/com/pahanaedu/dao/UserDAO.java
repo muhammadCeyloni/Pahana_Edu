@@ -25,4 +25,16 @@ public class UserDAO {
         }
         return null;
     }
+    public void addUser(User user) throws SQLException {
+    // A real-world application should hash the password before saving.
+    String sql = "INSERT INTO users (username, password) VALUES (?, ?)";
+    try (Connection conn = DatabaseUtil.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        
+        pstmt.setString(1, user.getUsername());
+        pstmt.setString(2, user.getPassword());
+        pstmt.executeUpdate();
+    }
 }
+}
+

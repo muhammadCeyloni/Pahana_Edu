@@ -20,6 +20,7 @@
         <servlet-name>InventoryServlet</servlet-name>
         <servlet-class>com.pahanaedu.controller.InventoryServlet</servlet-class>
     </servlet>
+    
     <servlet-mapping>
         <servlet-name>CustomerServlet</servlet-name>
         <url-pattern>/Customers</url-pattern>
@@ -40,6 +41,7 @@
         <servlet-name>InventoryServlet</servlet-name>
         <url-pattern>/Inventory</url-pattern>
     </servlet-mapping>
+    
     <session-config>
         <session-timeout>
             30

@@ -28,6 +28,9 @@
                         <button type="submit" class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center rounded-lg h-12 px-5 flex-1 bg-[#0df2f2] text-[#0d1c1c] text-base font-bold">
                             <span>Log in</span>
                         </button>
+                        <p class="text-[#499c9c] text-sm text-center pt-3 px-4">
+    Don't have an account? <a href="signup" class="underline">Sign Up</a>
+</p>
                     </div>
                 </form>
             </div>
