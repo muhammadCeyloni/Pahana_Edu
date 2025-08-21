@@ -58,9 +58,9 @@
                                             <fmt:formatNumber value="${item.price}" type="currency"/>
                                         </td>
                                         <td class="h-[72px] px-4 py-2 text-[#90cbcb] text-sm font-bold">
-                                            <a href="#" class="hover:underline">Edit</a> | 
-                                            <a href="inventory?action=delete&id=${item.itemId}" class="hover:underline text-red-400" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
-                                        </td>
+    <a href="inventory?action=edit&id=${item.itemId}" class="hover:underline">Edit</a> | 
+    <a href="inventory?action=delete&id=${item.itemId}" class="hover:underline text-red-400" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+</td>
                                     </tr>
                                 </c:forEach>
                             </tbody>

@@ -58,4 +58,32 @@ public class ItemDAO {
         item.setCategory(rs.getString("category"));
         return item;
     }
+    public Item getItemById(int itemId) throws SQLException {
+    String sql = "SELECT * FROM items WHERE item_id = ?";
+    try (Connection conn = DatabaseUtil.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setInt(1, itemId);
+        try (ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                return mapRowToItem(rs);
+            }
+        }
+    }
+    return null;
+}
+
+public void updateItem(Item item) throws SQLException {
+    String sql = "UPDATE items SET title = ?, author = ?, isbn = ?, quantity = ?, price = ?, category = ? WHERE item_id = ?";
+    try (Connection conn = DatabaseUtil.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setString(1, item.getTitle());
+        pstmt.setString(2, item.getAuthor());
+        pstmt.setString(3, item.getIsbn());
+        pstmt.setInt(4, item.getQuantity());
+        pstmt.setBigDecimal(5, item.getPrice());
+        pstmt.setString(6, item.getCategory());
+        pstmt.setInt(7, item.getItemId());
+        pstmt.executeUpdate();
+    }
+}
 }
