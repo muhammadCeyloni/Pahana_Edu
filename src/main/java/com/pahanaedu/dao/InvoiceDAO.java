@@ -97,4 +97,34 @@ public class InvoiceDAO {
         }
         return invoices;
     }
+    // Add this new method to your InvoiceDAO.java file
+public List<Invoice> getInvoicesByDateRange(java.util.Date startDate, java.util.Date endDate) throws SQLException {
+    List<Invoice> invoices = new ArrayList<>();
+    String sql = "SELECT i.*, c.name as customer_name FROM invoices i " +
+                 "JOIN customers c ON i.customer_id = c.customer_id " +
+                 "WHERE i.invoice_date BETWEEN ? AND ? " +
+                 "ORDER BY i.invoice_date DESC";
+
+    try (Connection conn = DatabaseUtil.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+        pstmt.setDate(1, new java.sql.Date(startDate.getTime()));
+        pstmt.setDate(2, new java.sql.Date(endDate.getTime()));
+
+        try (ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                Invoice invoice = new Invoice();
+                invoice.setInvoiceId(rs.getInt("invoice_id"));
+                invoice.setCustomerId(rs.getInt("customer_id"));
+                invoice.setInvoiceDate(rs.getDate("invoice_date"));
+                invoice.setTotalAmount(rs.getBigDecimal("total_amount"));
+                invoice.setStatus(rs.getString("status"));
+                // The customer's name is retrieved via the JOIN for display purposes
+                // You can add a transient field in your Invoice model if you wish
+                invoices.add(invoice);
+            }
+        }
+    }
+    return invoices;
+}
 }

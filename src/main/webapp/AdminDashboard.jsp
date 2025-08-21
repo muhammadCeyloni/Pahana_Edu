@@ -15,7 +15,7 @@
                 <a class="text-white text-sm font-medium" href="inventory">Inventory</a>
                 <a class="text-white text-sm font-medium" href="billing">Billing</a>
                 <a class="text-white text-sm font-medium" href="customers">Customers</a>
-                <a class="text-white text-sm font-medium" href="#">Reports</a>
+                <a class="text-white text-sm font-medium" href="reports">Reports</a>
                  <a class="text-red-400 text-sm font-medium" href="logout">Logout</a>
             </div>
         </header>

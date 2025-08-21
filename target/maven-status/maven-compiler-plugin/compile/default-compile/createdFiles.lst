@@ -10,6 +10,7 @@ com\pahanaedu\dao\CustomerDAO.class
 com\pahanaedu\resources\JakartaEE8Resource.class
 com\pahanaedu\controller\BillingServlet.class
 com\pahanaedu\controller\InventoryServlet.class
+com\pahanaedu\controller\ReportServlet.class
 com\pahanaedu\dao\InvoiceDAO.class
 com\pahanaedu\model\Customer.class
 com\pahanaedu\model\User.class
