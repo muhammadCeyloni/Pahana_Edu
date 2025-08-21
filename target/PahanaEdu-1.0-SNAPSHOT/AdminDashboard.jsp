@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <html>
 <head>
     <title>Admin Dashboard</title>
@@ -16,16 +18,48 @@
                 <a class="text-white text-sm font-medium" href="billing">Billing</a>
                 <a class="text-white text-sm font-medium" href="customers">Customers</a>
                 <a class="text-white text-sm font-medium" href="reports">Reports</a>
-                 <a class="text-red-400 text-sm font-medium" href="logout">Logout</a>
+                <a class="text-red-400 text-sm font-medium" href="logout">Logout</a>
             </div>
         </header>
         
         <div class="px-40 flex flex-1 justify-center py-5">
             <div class="flex flex-col max-w-[960px] flex-1">
-                 <div class="flex flex-wrap justify-between gap-3 p-4">
+                <div class="flex flex-wrap justify-between gap-3 p-4">
                     <div class="flex min-w-72 flex-col gap-3">
                         <p class="text-white tracking-light text-[32px] font-bold">Dashboard</p>
                         <p class="text-[#90cbcb] text-sm">Welcome back, ${sessionScope.user.username}</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-4 p-4">
+                    <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-lg p-6 bg-[#224949]">
+                        <p class="text-white text-base font-medium">Total Sales</p>
+                        <p class="text-white tracking-light text-2xl font-bold">
+                            <fmt:setLocale value="en_US"/>
+                            <fmt:formatNumber value="${dashboardStats.totalSales}" type="currency"/>
+                        </p>
+                    </div>
+
+                    <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-lg p-6 bg-[#224949]">
+                        <p class="text-white text-base font-medium">Inventory Value</p>
+                        <p class="text-white tracking-light text-2xl font-bold">
+                            <fmt:setLocale value="en_US"/>
+                            <fmt:formatNumber value="${dashboardStats.inventoryValue}" type="currency"/>
+                        </p>
+                    </div>
+
+                    <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-lg p-6 bg-[#224949]">
+                        <p class="text-white text-base font-medium">Active Customers</p>
+                        <p class="text-white tracking-light text-2xl font-bold">
+                             <fmt:formatNumber value="${dashboardStats.activeCustomers}" type="number"/>
+                        </p>
+                    </div>
+
+                    <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-lg p-6 bg-[#224949]">
+                        <p class="text-white text-base font-medium">Pending Orders</p>
+                        <p class="text-white tracking-light text-2xl font-bold">
+                            <fmt:formatNumber value="${dashboardStats.pendingOrders}" type="number"/>
+                        </p>
                     </div>
                 </div>
                 </div>
