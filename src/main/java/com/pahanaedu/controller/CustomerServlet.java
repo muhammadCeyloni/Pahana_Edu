@@ -13,49 +13,78 @@ import java.util.List;
 
 @WebServlet("/customers")
 public class CustomerServlet extends HttpServlet {
-    private CustomerDAO customerDAO = new CustomerDAO();
+    private final CustomerDAO customerDAO = new CustomerDAO();
 
     @Override
-protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String action = request.getParameter("action");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
 
-    try {
-        if (action != null && action.equals("delete")) {
-            // Get the ID from the URL parameter
-            int customerId = Integer.parseInt(request.getParameter("id"));
-            // Call the DAO to delete the customer
-            customerDAO.deleteCustomer(customerId);
-            // Redirect back to the customer list to show the change
-            response.sendRedirect("customers");
-        } else {
-            // Default action: display the list of customers
-            List<Customer> customerList = customerDAO.getAllCustomers();
-            request.setAttribute("customers", customerList);
-            request.getRequestDispatcher("CustomerManagement.jsp").forward(request, response);
+        try {
+            if (action == null) {
+                showCustomerList(request, response);
+            } else if ("delete".equals(action)) {
+                deleteCustomer(request, response);
+            } else if ("edit".equals(action)) {
+                showEditForm(request, response);
+            } else {
+                showCustomerList(request, response);
+            }
+        } catch (SQLException e) {
+            throw new ServletException("Database error in Customer Servlet", e);
         }
-    } catch (SQLException e) {
-        throw new ServletException("Database error in Customer Servlet", e);
     }
-}
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String name = request.getParameter("name");
-        String contact = request.getParameter("contact");
-        String address = request.getParameter("address");
-        String accountNumber = "ACC" + System.currentTimeMillis();
-
-        Customer newCustomer = new Customer();
-        newCustomer.setName(name);
-        newCustomer.setTelephone(contact);
-        newCustomer.setAddress(address);
-        newCustomer.setAccountNumber(accountNumber);
+        String action = request.getParameter("action");
 
         try {
-            customerDAO.addCustomer(newCustomer);
-            response.sendRedirect("customers");
+            if ("update".equals(action)) {
+                updateCustomer(request, response);
+            } else {
+                addCustomer(request, response);
+            }
         } catch (SQLException e) {
-            throw new ServletException("Database error adding customer", e);
+            throw new ServletException("Database error handling customer POST request", e);
         }
+    }
+
+    private void showCustomerList(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        List<Customer> customerList = customerDAO.getAllCustomers();
+        request.setAttribute("customers", customerList);
+        request.getRequestDispatcher("CustomerManagement.jsp").forward(request, response);
+    }
+
+    private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Customer existingCustomer = customerDAO.getCustomerById(id);
+        request.setAttribute("customer", existingCustomer);
+        request.getRequestDispatcher("edit-customer.jsp").forward(request, response);
+    }
+
+    private void deleteCustomer(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        customerDAO.deleteCustomer(id);
+        response.sendRedirect("customers");
+    }
+
+    private void addCustomer(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+        Customer newCustomer = new Customer();
+        newCustomer.setName(request.getParameter("name"));
+        newCustomer.setTelephone(request.getParameter("contact"));
+        newCustomer.setAddress(request.getParameter("address"));
+        newCustomer.setAccountNumber("ACC" + System.currentTimeMillis());
+        customerDAO.addCustomer(newCustomer);
+        response.sendRedirect("customers");
+    }
+
+    private void updateCustomer(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+        Customer customer = new Customer();
+        customer.setCustomerId(Integer.parseInt(request.getParameter("id")));
+        customer.setName(request.getParameter("name"));
+        customer.setTelephone(request.getParameter("contact"));
+        customer.setAddress(request.getParameter("address"));
+        customerDAO.updateCustomer(customer);
+        response.sendRedirect("customers");
     }
 }

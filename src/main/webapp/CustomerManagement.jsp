@@ -52,7 +52,7 @@
                                         <td class="h-[72px] px-4 py-2 text-[#90cbcb]"><c:out value="${customer.address}" /></td>
                                         <td class="h-[72px] px-4 py-2 text-[#90cbcb]"><c:out value="${customer.accountNumber}" /></td>
                                         <td class="h-[72px] px-4 py-2 text-[#90cbcb] text-sm font-bold">
-    <a href="#" class="hover:underline">Edit</a> |
+    <a href="customers?action=edit&id=${customer.customerId}" class="hover:underline">Edit</a> |
     <a href="customers?action=delete&id=${customer.customerId}" class="hover:underline text-red-400" onclick="return confirm('Are you sure you want to delete this customer?');">
         Delete
     </a>

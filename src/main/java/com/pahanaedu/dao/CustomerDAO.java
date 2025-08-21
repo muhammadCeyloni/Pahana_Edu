@@ -52,5 +52,31 @@ public class CustomerDAO {
         pstmt.executeUpdate();
     }
 }
+// Add this method to get a single customer
+public Customer getCustomerById(int customerId) throws SQLException {
+    String sql = "SELECT * FROM customers WHERE customer_id = ?";
+    try (Connection conn = DatabaseUtil.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setInt(1, customerId);
+        try (ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                return mapRowToCustomer(rs); // Using the helper method you already have
+            }
+        }
+    }
+    return null;
+}
 
+// Add this method to update a customer's details
+public void updateCustomer(Customer customer) throws SQLException {
+    String sql = "UPDATE customers SET name = ?, address = ?, telephone = ? WHERE customer_id = ?";
+    try (Connection conn = DatabaseUtil.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setString(1, customer.getName());
+        pstmt.setString(2, customer.getAddress());
+        pstmt.setString(3, customer.getTelephone());
+        pstmt.setInt(4, customer.getCustomerId());
+        pstmt.executeUpdate();
+    }
+}
 }
